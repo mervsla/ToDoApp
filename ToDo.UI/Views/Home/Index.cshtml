@@ -1,0 +1,122 @@
+﻿
+
+
+
+<div class="container m-5">
+
+
+    <div class="m-5">
+        <div class="row shadow-sm p-3 m-3 bg-light text-dark rounded">
+            <div class="col-md-7">
+                <h2 class="font-weight-bold"> TO DO LIST</h2>
+            </div>
+            <div class="col-md-5">
+                <button class="btn btn-danger float-right" data-toggle="modal" data-target="#addtodoModal" type="button">Add New To Do</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="addtodoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add To Do</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="description" class="col-sm-4 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="description">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="AddToDoBtn" data-dismiss="modal">Add</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="table-responsive">
+
+        <table id="todosTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+
+    <div class="modal fade" id="edittodoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit To Do</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label for="editdescrptn" class="col-sm-4 col-form-label">Description</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="editdescrptn">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="EditToDoBtn" data-dismiss="modal">Edit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+        integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+        crossorigin="anonymous"></script>
+
+<script src="~/js/todo.js"></script>
