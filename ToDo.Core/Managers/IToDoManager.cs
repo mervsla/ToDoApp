@@ -11,5 +11,6 @@ namespace ToDo.Core.Managers
         void DeleteToDo(int id);
         List<ToDoDto> getAllToDos();
         void UpdateToDo(ToDoDto todoDto);
+        ToDoDto GetToDoById(int id);
     }
 }

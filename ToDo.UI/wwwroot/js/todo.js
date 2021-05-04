@@ -4,7 +4,7 @@ var todoid;
 
 $(document).ready(function () {
 
-    
+
 
     var dataa = GetToDoList();
 
@@ -51,13 +51,38 @@ function GetToDoList() {
         success: function (data) {
             dataa = data;
         },
-        fail: {     }
+        fail: {}
     });
     return dataa;
 }
 
 
+function ReloadTable() {
+    $('#todosTable').dataTable().fnClearTable();
+    var _data = GetToDoList();
+    if (_data.length != 0) {
+        $("#todosTable").dataTable().fnAddData(_data);
 
+    }
+}
+
+
+
+function GettodoInfo(id) {
+    todoid = Number(id);
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: "https://localhost:44389/todoservice/gettodoinfo",
+        dataType: "JSON",
+        contentType: "application/json; charset-utf-8",
+        data: JSON.stringify({ 'Id': todoid }),
+        success: function (data) {
+            $('#editdescrptn').val(data.description);
+        }
+    });
+
+}
 
 
 
@@ -71,13 +96,8 @@ $("#AddToDoBtn").click(function () {
         contentType: "application/json; charset-utf-8",
         data: JSON.stringify({ 'Description': Description }),
         success: function (data) {
-
-            $('#todosTable').dataTable().fnClearTable();
-            var _data = GetToDoList();
-            if (_data.length != 0) {
-                $("#todosTable").dataTable().fnAddData(_data);
-
-            }
+            $("#description").val("");
+            ReloadTable();
         }
     });
 });
@@ -86,7 +106,7 @@ $("#AddToDoBtn").click(function () {
 
 $("#EditToDoBtn").click(function () {
 
-    var Id = Number(todoid);
+    var Id = todoid;
     var Description = $("#editdescrptn").val();
     $.ajax({
         type: "POST",
@@ -95,23 +115,12 @@ $("#EditToDoBtn").click(function () {
         contentType: "application/json; charset-utf-8",
         data: JSON.stringify({ 'Id': Id, 'Description': Description }),
         success: function (data) {
-            $('#todosTable').dataTable().fnClearTable();
-            var _data = GetToDoList();
-            if (_data.length != 0) {
-                $("#todosTable").dataTable().fnAddData(_data);
-
-            }
+            $("#editdescrptn").val("");
+            ReloadTable();
         }
     });
 
 });
-
-
-
-function GettodoInfo(id) {
-    todoid = id;
-
-}
 
 
 
@@ -126,12 +135,7 @@ function DeleteToDo(id) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ 'Id': todoId }),
         success: function (data) {
-            $('#todosTable').dataTable().fnClearTable();
-            var _data = GetToDoList();
-            if (_data.length != 0) {
-                $("#todosTable").dataTable().fnAddData(_data);
-
-            }
+            ReloadTable();
         }
     });
 }

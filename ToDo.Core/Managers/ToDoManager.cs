@@ -28,7 +28,12 @@ namespace ToDo.Core.Managers
             ToDoEntity todo = toDoRepository.getToDoById(id);
             toDoRepository.DeleteToDo(todo);
         }
-
+        
+        public ToDoDto GetToDoById(int id)
+        {
+            ToDoEntity todo = toDoRepository.getToDoById(id);
+            return ConvertToDto(todo);
+        }
         public List<ToDoDto> getAllToDos()
         {
             List<ToDoEntity> todos = toDoRepository.getAllToDos();
@@ -37,17 +42,7 @@ namespace ToDo.Core.Managers
 
             foreach (ToDoEntity todo in todos)
             {
-                ToDoDto todoDto = new ToDoDto();
-                todoDto.Id = todo.Id;
-                todoDto.Description = todo.Description;
-                todoDto.CreatedDate = todo.CreatedDate.ToString();
-                if (todo.UpdatedDate != null)
-                {
-                    todoDto.UpdatedDate = todo.UpdatedDate.ToString();
-                }
-
-                todoDtos.Add(todoDto);
-
+                todoDtos.Add(ConvertToDto(todo));
             }
 
             return todoDtos;
@@ -71,6 +66,21 @@ namespace ToDo.Core.Managers
             todo.CreatedDate = todoDto.DateOfCreate;
 
             return todo;
+        }
+
+        private ToDoDto ConvertToDto(ToDoEntity todo)
+        {
+            ToDoDto todoDto = new ToDoDto();
+            todoDto.Id = todo.Id;
+            todoDto.Description = todo.Description;
+            todoDto.CreatedDate = todo.CreatedDate.ToString();
+            if (todo.UpdatedDate != null)
+            {
+                todoDto.UpdatedDate = todo.UpdatedDate.ToString();
+            }
+
+            return todoDto;
+
         }
     }
 }

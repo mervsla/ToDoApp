@@ -26,18 +26,25 @@ namespace ToDo.API.Controllers
         }
 
         [HttpPost]
-        public bool AddToDo(ToDoDto todoDto)
+        public ToDoDto GetToDoInfo(ToDoDto toDoDto)
+        {
+            ToDoDto todo = toDoManager.GetToDoById(toDoDto.Id);
+            return todo;
+        }
+
+        [HttpPost]
+        public IActionResult AddToDo(ToDoDto todoDto)
         {
            
             toDoManager.AddToDo(todoDto);
-            return true;
+            return Ok(true); ;
 
         }
         [HttpPost]
-        public bool UpdateToDo(ToDoDto todoDto)
+        public IActionResult UpdateToDo(ToDoDto todoDto)
         {
             toDoManager.UpdateToDo(todoDto);
-            return true;
+            return Ok(true); ;
         }
 
         [HttpDelete]
