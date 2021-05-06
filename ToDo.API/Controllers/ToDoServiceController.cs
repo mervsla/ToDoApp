@@ -53,5 +53,11 @@ namespace ToDo.API.Controllers
             toDoManager.DeleteToDo(todoDto.Id);
             return Ok(true);
         }
+        [HttpPost]
+        public IActionResult ToDoCompleted(ToDoDto todoDto)
+        {
+            toDoManager.ToDoCompleted(todoDto.Id);
+            return Ok(true); ;
+        }
     }
 }

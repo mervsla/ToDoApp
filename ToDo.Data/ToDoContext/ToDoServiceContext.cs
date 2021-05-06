@@ -8,15 +8,21 @@ namespace ToDo.Data.ToDoContext
 {
    public class ToDoServiceContext:DbContext
     {
-      
 
 
+
+        public DbSet<ToDoEntity> ToDos { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"server=MERVE\SQLEXPRESS; initial catalog=ToDoDb; integrated security = true;");
+            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=ToDoAppDb;Integrated Security=true; User Id=postgres;Password=0010;");
         }
-       
-        public DbSet<ToDoEntity> ToDos { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ToDoEntity>().ToTable("ToDoEntity", "public");
+        }
 
     }
 }

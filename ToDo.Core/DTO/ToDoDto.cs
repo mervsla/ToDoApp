@@ -14,5 +14,7 @@ namespace ToDo.Core.DTO
 
         public string CreatedDate { get; set; }
         public string UpdatedDate { get; set; }
+        public string TimetoFinish { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

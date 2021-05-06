@@ -53,9 +53,16 @@ namespace ToDo.Core.Managers
             ToDoEntity todo = toDoRepository.getToDoById(todoDto.Id);
             todo.UpdatedDate = DateTime.Now;
             todo.Description = todoDto.Description;
+            todo.TimetoFinish= DateTime.Parse(todoDto.TimetoFinish);
             toDoRepository.UpdateToDo(todo);
 
 
+        }
+        public void ToDoCompleted(int id)
+        {
+            ToDoEntity todo = toDoRepository.getToDoById(id);
+            todo.IsCompleted = true;
+            toDoRepository.UpdateToDo(todo);
         }
 
         private ToDoEntity ConvertToEntity(ToDoDto todoDto)
@@ -64,7 +71,8 @@ namespace ToDo.Core.Managers
             todo.Id = todoDto.Id;
             todo.Description = todoDto.Description;
             todo.CreatedDate = todoDto.DateOfCreate;
-
+            todo.TimetoFinish = DateTime.Parse(todoDto.TimetoFinish);
+            todo.IsCompleted = todoDto.IsCompleted;
             return todo;
         }
 
@@ -78,9 +86,12 @@ namespace ToDo.Core.Managers
             {
                 todoDto.UpdatedDate = todo.UpdatedDate.ToString();
             }
-
+            todoDto.TimetoFinish = todo.TimetoFinish.ToString();
+            todoDto.IsCompleted = todo.IsCompleted;
             return todoDto;
 
         }
+
+
     }
 }

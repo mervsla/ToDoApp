@@ -12,5 +12,6 @@ namespace ToDo.Core.Managers
         List<ToDoDto> getAllToDos();
         void UpdateToDo(ToDoDto todoDto);
         ToDoDto GetToDoById(int id);
+        void ToDoCompleted(int id);
     }
 }

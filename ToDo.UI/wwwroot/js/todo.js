@@ -1,7 +1,6 @@
 ﻿
 var todoid;
 
-
 $(document).ready(function () {
 
 
@@ -10,9 +9,23 @@ $(document).ready(function () {
 
     $("#todosTable").DataTable({
 
+        
         data: dataa,
         "columns": [
             { data: "description", "autoWidth": true },
+            { data: "timetoFinish", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    debugger;
+                    if (row.isCompleted == true) {
+                        return "<span class='badge badge-secondary' disabled>Completed</span>";
+                    }
+                    else {
+                        debugger;
+                        return "<a href='#' class='btn btn-success complete'   onclick=Completed('" + row.id + "')>Complete</a>";
+                    }
+                }
+            },
             { data: "createdDate", "autoWidth": true },
             { data: "updatedDate", "autoWidth": true },
 
@@ -79,6 +92,7 @@ function GettodoInfo(id) {
         data: JSON.stringify({ 'Id': todoid }),
         success: function (data) {
             $('#editdescrptn').val(data.description);
+            $('#editdatetimepicker').val(data.timetoFinish);
         }
     });
 
@@ -88,15 +102,18 @@ function GettodoInfo(id) {
 
 $("#AddToDoBtn").click(function () {
     var Description = $("#description").val();
+    var TimetoFinish = $("#adddatetimepicker").val();
+    debugger;
 
     $.ajax({
         type: "POST",
         url: "https://localhost:44389/todoservice/addtodo",
         dataType: "JSON",
         contentType: "application/json; charset-utf-8",
-        data: JSON.stringify({ 'Description': Description }),
+        data: JSON.stringify({ 'Description': Description, 'TimetoFinish': TimetoFinish}),
         success: function (data) {
             $("#description").val("");
+            $("#adddatetimepicker").val("");
             ReloadTable();
         }
     });
@@ -108,14 +125,16 @@ $("#EditToDoBtn").click(function () {
 
     var Id = todoid;
     var Description = $("#editdescrptn").val();
+    var TimetoFinish = $("#editdatetimepicker").val();
     $.ajax({
         type: "POST",
         url: "https://localhost:44389/todoservice/updatetodo",
         dataType: "JSON",
         contentType: "application/json; charset-utf-8",
-        data: JSON.stringify({ 'Id': Id, 'Description': Description }),
+        data: JSON.stringify({ 'Id': Id, 'Description': Description, 'TimetoFinish': TimetoFinish }),
         success: function (data) {
             $("#editdescrptn").val("");
+            $("#editdatetimepicker").val("");
             ReloadTable();
         }
     });
@@ -136,6 +155,29 @@ function DeleteToDo(id) {
         data: JSON.stringify({ 'Id': todoId }),
         success: function (data) {
             ReloadTable();
+        }
+    });
+}
+
+
+//function isTimeClose() {
+
+//}
+//setTnter,100
+
+
+function Completed(id) {
+    var Id = Number(id);
+    debugger;
+    $.ajax({
+        type: "POST",
+        url: "https://localhost:44389/todoservice/todocompleted",
+        datatype: "JSON",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ 'Id': Id }),
+        success: function (data) {
+            debugger;
+                ReloadTable();
         }
     });
 }
